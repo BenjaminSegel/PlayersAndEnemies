@@ -9,4 +9,6 @@ public class Sword extends Weapon{
         System.out.println("Player swung their sword!");
         return damage;
     }
+
+
 }

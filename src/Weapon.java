@@ -14,4 +14,9 @@ public abstract class Weapon extends Item {
         return damage;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + System.lineSeparator() + " Damage: " +
+                damage + System.lineSeparator() + " Material: " + material;
+    }
 }
