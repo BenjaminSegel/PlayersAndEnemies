@@ -23,7 +23,7 @@ public abstract class Item  {
 
     @Override
     public String toString() {
-        return name + System.lineSeparator() + "worth: " +  worth + " gold" +
-                System.lineSeparator() + "weight: " + weight + "kg" ;
+        return System.lineSeparator() + name + System.lineSeparator() + "Worth: " +  worth + " Gold" +
+                System.lineSeparator() + "Weight: " + weight + "kg" ;
     }
 }

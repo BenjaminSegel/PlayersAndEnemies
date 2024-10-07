@@ -12,25 +12,29 @@ public class Inventory {
         items.add(item);
     }
 
-    public void removeItem(String name){
+    public void removeItem(String name) throws Exception{
         for(Item item : items){
             if(item.getName().equalsIgnoreCase(name)){
+                try{
                 items.remove(item);
+                }catch (Exception e){
+                    System.out.println("Something went wrong: " + e);
+                    throw e;
+                }
             }
         }
     }
 
     public void openInventory(){
-        System.out.println("Inventory: " + System.lineSeparator() +
-                items);
+        for(Item item : items){
+            System.out.println(item);
+        }
 
     }
 
     public void viewItem(String name){
         for(Item item : items){
-            if(item.getName().equalsIgnoreCase(name)){
-                System.out.println(item);
-            }
+
         }
     }
 }

@@ -16,7 +16,7 @@ public abstract class Weapon extends Item {
 
     @Override
     public String toString() {
-        return super.toString() + System.lineSeparator() + " Damage: " +
-                damage + System.lineSeparator() + " Material: " + material;
+        return super.toString() + System.lineSeparator() + "Damage: " +
+                damage + System.lineSeparator() + "Material: " + material;
     }
 }

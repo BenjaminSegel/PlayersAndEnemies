@@ -1,7 +1,7 @@
 public class HealthPotion extends Consumable{
 
-    public HealthPotion(String name, int worth, int weight) {
+    public HealthPotion(String name, int worth, int weight, int effect) {
 
-        super(name, worth, weight);
+        super(name, worth, weight, effect);
     }
 }
