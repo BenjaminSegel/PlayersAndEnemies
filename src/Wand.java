@@ -1,8 +1,10 @@
 public class Wand extends Weapon{
 
-    public Wand(String name, int worth, int weight, int damage, String material) {
-        super(name, worth, weight, damage, material);
+    public Wand(String name, int worth, int weight, int damage, String material, int level) {
+        super(name, worth, weight, damage, material, level);
     }
+
+
 
     @Override
     public int attack(){

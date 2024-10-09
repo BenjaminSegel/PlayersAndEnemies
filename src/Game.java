@@ -2,14 +2,18 @@ import java.util.Scanner;
 
 public class Game {
     private boolean running;
+    private boolean inGame;
     private boolean inCombat;
     private Scanner sc;
     private EnemyGenerator enemyGenerator;
+    private ItemDrop itemDrop;
     public Game(){
         running = true;
         inCombat = false;
         sc = new Scanner(System.in);
         enemyGenerator = new EnemyGenerator();
+        itemDrop = new ItemDrop();
+        inGame = false;
     }
 
 
@@ -17,14 +21,17 @@ public class Game {
     public void start(){
 
         while(running){
-            Weapon w1 = new Sword("Elf Sword", 500, 5, 50, "Elf Dust");
-            Weapon w2 = new Sword("Dragon wand", 2000, 4, 180, "Dragon Scale");
+            Weapon w1 = new Sword("Elf Sword", 500, 5, 50, "Elf Dust", 10);
+            Weapon w2 = new Sword("Dragon wand", 2000, 4, 180, "Dragon Scale", 10);
             System.out.println("Welcome to Player and Enemy! ");
             System.out.println("Please enter your name: ");
             String name = sc.nextLine();
             Player player = new Player(name);
             player.addItemToInventory(w1);
             player.addItemToInventory(w2);
+            inGame = true;
+            while(inGame){
+            System.out.println(player);
             System.out.println("1. Open Inventory " + System.lineSeparator() +
                     "2. Fight enemy");
             int menuChoice = sc.nextInt();
@@ -38,6 +45,7 @@ public class Game {
                     Enemy enemy = enemyGenerator.pickRandomEnemy(player.getLevel(), 2);
                     System.out.println("A " + enemy.getName() + " crossed your path!");
                     while(inCombat){
+                    System.out.println(player);
                     System.out.println(enemy);
                     System.out.println("What do you want to do?: " + System.lineSeparator() +
                             "1. Attack" + System.lineSeparator() +
@@ -46,7 +54,32 @@ public class Game {
                     int playerChoice = sc.nextInt();
                     switch(playerChoice){
                         case 1:
-                            enemy.takeDamage(player.attack());
+                            player.attack(enemy);
+                            if(enemy.getHealth() <= 0){
+                                System.out.println(enemy.getName() + " was defeated!");
+                                Item droppedItem = itemDrop.pickRandomItem(enemy.getLevel());
+                                System.out.println(droppedItem.getName() + " was dropped!: " + System.lineSeparator() +
+                                        droppedItem +
+                                        "1. Pick up item" + System.lineSeparator() +
+                                        "2. Leave item" + System.lineSeparator());
+                                int itemChoice = sc.nextInt();
+                                switch(itemChoice){
+                                    case 1:
+                                        player.addItemToInventory(droppedItem);
+                                        System.out.println("Item was added to Inventory!");
+                                        break;
+                                    case 2:
+                                        break;
+                                    default:
+                                        System.out.println("Invalid choice!");
+                                }
+                                player.recieveXp(enemy.calcXpDrop(player.getLevel()));
+                                inCombat = false;
+                                break;
+                            }
+                            enemy.attack(player);
+                            break;
+
                     }
                     }
                     break;
@@ -55,6 +88,7 @@ public class Game {
                     break;
             }
 
+            }
 
         }
     }

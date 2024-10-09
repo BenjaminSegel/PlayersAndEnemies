@@ -1,8 +1,8 @@
-public abstract class Armor extends Item {
+public abstract class Armor extends Item  {
     private int defence;
     private String material;
-    public Armor(String name, int weight, int worth, int defence, String material) {
-        super(name, weight, worth);
+    public Armor(String name, int weight, int worth, int defence, String material, int level) {
+        super(name, weight, worth, level);
         this.defence = defence;
         this.material = material;
     }

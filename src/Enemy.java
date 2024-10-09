@@ -6,6 +6,7 @@ public class Enemy {
     private int damage;
     private int level;
     private Random rng;
+    private int xpDrop;
 
     public Enemy(String name, int level) {
         this.name = name;
@@ -21,13 +22,19 @@ public class Enemy {
     public int calcDamage(int level){
         return 20 + (level * 2);
     }
-    public void takeDamage(int damage){
-        this.health -= damage;
+    public int calcXpDrop(int level){
+        return 50 + (level * 2);
     }
 
-    public int attack(){
+    public int takeDamage(int damage){
+        this.health -= damage;
+        return damage;
+    }
+
+    public void attack(Player player){
         int randomExtraDamage = rng.nextInt(20);
-        return damage += randomExtraDamage ;
+        int totalDamage = damage + randomExtraDamage;
+        System.out.println(name + " attacked! It dealt " + player.takeDamage(totalDamage) + " damage to " + player.getName() );
     }
 
     public String getName(){
@@ -45,7 +52,7 @@ public class Enemy {
     @Override
     public String toString(){
         return "lvl " + level + " " + name + System.lineSeparator() +
-                "health: " + health;
+                "HP: " + health;
 
     }
 
