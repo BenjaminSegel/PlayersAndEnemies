@@ -17,11 +17,16 @@ public class Inventory {
         equippedItems.add(item);
     }
 
+    public void removeEquippedItem(Item item){
+        equippedItems.remove(item);
+    }
+
     public void removeItem(String name) throws Exception{
         for(Item item : items){
             if(item.getName().equalsIgnoreCase(name)){
                 try{
                 items.remove(item);
+                System.out.println(item.getName() + " was removed from inventory");
                 }catch (Exception e){
                     System.out.println("Something went wrong: " + e);
                     throw e;
@@ -30,7 +35,11 @@ public class Inventory {
         }
     }
 
-    public Item specificItem(int index){
+    public boolean itemEquipped(Item item){
+        return equippedItems.contains(item);
+    }
+
+    public Item viewSpecificItem(int index){
         for(Item item : items){
             if(index == item.getIndex() && item.getClass().getSuperclass().toString().equals("class Consumable")){
                 System.out.println(item);
@@ -38,10 +47,18 @@ public class Inventory {
                         "2. Remove item");
                 return item;
             }else if(index == item.getIndex()){
-                System.out.println(item);
+                if(itemEquipped(item)){
+                    System.out.println(item);
+                System.out.println("1. Unequip item" + System.lineSeparator()
+                        + "2. Remove Item");
+                    return item;
+                }
+                    System.out.println(item);
                 System.out.println("1. Equip item" + System.lineSeparator()
                         + "2. Remove Item");
-                return item;
+                    return item;
+
+
             }
         }
             return null;
@@ -57,9 +74,4 @@ public class Inventory {
 
     }
 
-    public void viewItem(String name){
-        for(Item item : items){
-
-        }
-    }
 }

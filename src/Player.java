@@ -77,10 +77,10 @@ public class Player {
     public void attack(Enemy enemy){
         int randomExtraDmg = rng.nextInt(30);
         if(equippedWeapon !=null){
-            int totalDamage = baseDamage += equippedWeapon.attack() + randomExtraDmg;
+            int totalDamage = baseDamage + equippedWeapon.attack() + randomExtraDmg;
             System.out.println("Player dealt " + enemy.takeDamage(totalDamage) + " damage");
         }else{
-            int totalDamage = baseDamage += randomExtraDmg;
+            int totalDamage = baseDamage + randomExtraDmg;
             System.out.println("Player dealt " + enemy.takeDamage(totalDamage) + " damage");
 
         }
@@ -90,15 +90,19 @@ public class Player {
         inventory.addItem(item);
     }
 
-    public Item specificPlayerItem(int index){
-        return inventory.specificItem(index);
+    public Item viewSpecificPlayerItem(int index){
+        return inventory.viewSpecificItem(index);
     }
 
     public void manageItem(Item item){
         if(item.getClass().getSuperclass().toString().equals("class Consumable")){
             drinkHpPotion((HealthPotion) item);
         }else{
+        if(!inventory.itemEquipped(item)){
             equipItem(item);
+        }else{
+        unequipItem(item);
+        }
         }
     }
 
@@ -111,6 +115,19 @@ public class Player {
     }
     public void openInventory(){
         inventory.openInventory();
+    }
+
+    public void unequipItem(Item item){
+        inventory.removeEquippedItem(item);
+        if(item.getClass().getSuperclass().toString().equals("class Weapon")){
+            System.out.println(equippedWeapon.getName() + " was unequipped!");
+            this.equippedWeapon = null;
+        }else if(item.getClass().getSuperclass().toString().equals("class Armor")){
+            System.out.println(equippedArmor.getName() + " was unequipped!");
+            this.equippedArmor = null;
+        }else{
+            System.out.println("Something went wrong");
+        }
     }
 
     public void equipItem(Item item){
@@ -131,9 +148,15 @@ public class Player {
         if(baseHealth < maxHealth){
             if(baseHealth + potion.use() > maxHealth){
                 baseHealth = maxHealth;
+                System.out.println("Health now at full hp!");
+                potion.decrementAmount();
+
             }else{
-        baseHealth += potion.use();
+                System.out.println("Used" + potion.getName() + ", recovered " + potion.getEffect() + potion.getPlayerStatToEffect());
+                baseHealth += potion.use();
             }
+        }else{
+        System.out.println("Health already at full hp!");
         }
     }
 

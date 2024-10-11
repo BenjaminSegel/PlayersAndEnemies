@@ -40,11 +40,18 @@ public class Game {
                 System.out.println("Enter item number to showcase it");
                 player.openInventory();
                 int inventoryChoice = sc.nextInt();
-                Item item = player.specificPlayerItem(inventoryChoice);
+                Item item = player.viewSpecificPlayerItem(inventoryChoice);
                 int itemChoice = sc.nextInt();
                 switch(itemChoice){
                     case 1:
                         player.manageItem(item);
+                        break;
+                    case 2:
+                        player.removeItemFromInventory(item);
+                        break;
+                    default:
+                        System.out.println("Invalid choice");
+                        break;
                 }
 
                 break;
