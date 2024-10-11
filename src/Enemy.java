@@ -31,6 +31,12 @@ public class Enemy {
         return damage;
     }
 
+    public int dropGold(){
+     int goldDrop = rng.nextInt(80, 120) + (damage * level) ;
+     System.out.println(name + " dropped " + goldDrop + " gold");
+     return goldDrop;
+    }
+
     public void attack(Player player){
         int randomExtraDamage = rng.nextInt(20);
         int totalDamage = damage + randomExtraDamage;

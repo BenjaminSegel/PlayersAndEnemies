@@ -27,8 +27,8 @@ public class Game {
             String name = sc.nextLine();
             Player player = new Player(name);
             player.addItemToInventory(new HealthPotion(3));
-            player.addItemToInventory(new Sword("Elf Sword", 500, 5, 50, "Elf Dust", 10));
-            player.addItemToInventory(new Sword("Dragon wand", 2000, 4, 180, "Dragon Scale", 10));
+            player.addItemToInventory(new Sword("Elf Sword", 500, 5, 50, "Elf Dust", 10, 10));
+            player.addItemToInventory(new Sword("Dragon wand", 2000, 4, 180, "Dragon Scale", 10, 10));
             inGame = true;
             while(inGame){
             System.out.println(player);
@@ -48,6 +48,13 @@ public class Game {
                         break;
                     case 2:
                         player.removeItemFromInventory(item);
+                        break;
+                    case 3:
+                        if(item instanceof Upgradable){
+                            ((Upgradable) item).upgrade(player.getGold());
+                            break;
+                        }
+                        System.out.println("Invalid choice");
                         break;
                     default:
                         System.out.println("Invalid choice");
@@ -74,6 +81,7 @@ public class Game {
                             if(enemy.getHealth() <= 0){
                                 System.out.println(enemy.getName() + " was defeated!");
                                 Item droppedItem = itemDrop.pickRandomItem(enemy.getLevel());
+                                player.recieveGold(enemy.dropGold());
                                 System.out.println(droppedItem.getName() + " was dropped!: " + System.lineSeparator() +
                                         droppedItem + System.lineSeparator() +
                                         "1. Pick up item" + System.lineSeparator() +

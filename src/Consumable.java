@@ -4,7 +4,7 @@ public abstract class Consumable extends Item implements Useable{
     private String playerStatToEffect;
 
     public Consumable(String name, int weight, int worth, int effect, int level, String playerStatToEffect){
-        super(name, weight, worth, level);
+        super(name, weight, worth, level, level);
         this.effect = effect;
         this.playerStatToEffect = playerStatToEffect;
     }

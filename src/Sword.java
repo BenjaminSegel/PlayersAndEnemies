@@ -1,7 +1,7 @@
 public class Sword extends Weapon{
 
-    public Sword(String name, int worth, int weight, int damage, String material, int level) {
-        super(name, worth, weight, damage, material, level);
+    public Sword(String name, int worth, int weight, int damage, String material, int level, int maxLevel) {
+        super(name, worth, weight, damage, material, level, maxLevel);
     }
 
     @Override

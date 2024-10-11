@@ -29,6 +29,9 @@ public class Player {
         this.rng = new Random();
     }
 
+    public int getGold(){
+        return gold;
+    }
     public String getName(){
         return name;
     }
@@ -53,6 +56,10 @@ public class Player {
         if(this.xp >= maxXp){
             levelUp(this.xp - maxXp);
         }
+    }
+
+    public void recieveGold(int gold){
+        this.gold += gold;
     }
 
     public int takeDamage(int damage){
@@ -110,7 +117,7 @@ public class Player {
         try{
         inventory.removeItem(item.getName());
         }catch(Exception e){
-            System.out.println("Something went very wrong");
+            System.out.println("Something went very wrong: " + e);
         }
     }
     public void openInventory(){

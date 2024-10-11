@@ -18,12 +18,13 @@ public class ItemDrop {
     public void generateWeapons(){
         String[] lowLevelWandNames = {"Mighty Stick", "Magical Branch" ,"Enchanted Rod"};
         String[] lowLevelSwordNames = {"Sharp Dagger" , "Rusty Sword" , "Small Axe"};
+        int maxLevel = rng.nextInt(3, 5);
         for(int level = 1; level < 5; level++){
             for(String name : lowLevelWandNames){
-               lowLevelItemList.add(new Wand(name,calcWorth(level, 100), rng.nextInt(1,3), 20, "Wood", level));
+               lowLevelItemList.add(new Wand(name,calcWorth(level, 100), rng.nextInt(1,3), 20, "Wood", level, maxLevel));
             }
             for(String name : lowLevelSwordNames){
-                lowLevelItemList.add(new Sword(name,calcWorth(level, 100), rng.nextInt(3,5), 20, "Metal", level));
+                lowLevelItemList.add(new Sword(name,calcWorth(level, 100), rng.nextInt(3,5), 20, "Metal", level, maxLevel));
             }
         }
 

@@ -2,21 +2,25 @@ public abstract class Item  {
     private String name;
     private int worth;
     private int weight;
-    private int level;
+    protected int level;
     private int index;
+    private int maxLevel;
 
-    public Item (String name, int worth, int weight, int level) {
+    public Item (String name, int worth, int weight, int level, int maxLevel) {
         this.name = name;
         this.worth = worth;
         this.weight = weight;
         this.level = level;
+        this.maxLevel = maxLevel;
         this.index = 0;
     }
 
     public int getLevel(){
         return level;
     }
-
+    public int getMaxLevel(){
+        return maxLevel;
+    }
     public void setIndex(int index){
         this.index = index;
     }
@@ -38,7 +42,7 @@ public abstract class Item  {
 
     @Override
     public String toString() {
-        return System.lineSeparator() + name + System.lineSeparator() + "Worth: " +  worth + " Gold" +
+        return System.lineSeparator() + name + " lvl: " + level + System.lineSeparator() + "Worth: " +  worth + " Gold" +
                 System.lineSeparator() + "Weight: " + weight + "kg" ;
     }
 }
