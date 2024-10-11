@@ -103,6 +103,13 @@ public class Game {
                             }
                             enemy.attack(player);
                             break;
+                        case 2:
+                            player.useConsumable();
+                            break;
+                        case 3:
+                            System.out.println(player.getName() + " ran away! What a coward!");
+                            inCombat = false;
+                            break;
 
                     }
                     }

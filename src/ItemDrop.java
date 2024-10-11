@@ -30,6 +30,17 @@ public class ItemDrop {
 
     }
 
+    public void generateArmor(){
+        String[] lowLevelHeavyArmorNames = {"Bronze armor", "Chainmail armor" ,"Aligator armor"};
+
+        int maxLevel = rng.nextInt(3, 5);
+        for(int level = 1; level < 5; level++){
+            for(String name : lowLevelHeavyArmorNames){
+                lowLevelItemList.add(new HeavyArmor(name, rng.nextInt(5, 8), calcWorth(level, 80),10, level, maxLevel ));
+            }
+        }
+    }
+
     public List<Item> getRangedItems(int enemyLevel){
         List<Item> rangedItems = new ArrayList<>();
         int range = rng.nextInt(3);
@@ -45,6 +56,7 @@ public class ItemDrop {
 
     public Item pickRandomItem(int enemyLevel){
         generateWeapons();
+        generateArmor();
         List<Item> rangedItems = getRangedItems(enemyLevel);
         if(!rangedItems.isEmpty()){
             Random rng = new Random();

@@ -45,6 +45,16 @@ public class Inventory {
         return equippedItems.contains(item);
     }
 
+    public List<Consumable> getConsumables(){
+        List<Consumable> consumables = new ArrayList<>();
+       for(Item item : items){
+           if(item instanceof Consumable){
+               consumables.add((Consumable) item);
+           }
+       }
+       return consumables;
+    }
+
     public Item viewSpecificItem(int index){
         for(Item item : items){
             if(index == item.getIndex() && item.getClass().getSuperclass().toString().equals("class Consumable")){

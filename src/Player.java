@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Random;
 
 public class Player {
@@ -60,6 +61,16 @@ public class Player {
 
     public void recieveGold(int gold){
         this.gold += gold;
+    }
+
+    public void useConsumable(){
+         List<Consumable> consumables = inventory.getConsumables();
+         for(Consumable consumable : consumables){
+             if(consumable instanceof HealthPotion){
+                 drinkHpPotion((HealthPotion) consumable);
+             }
+         }
+
     }
 
     public int takeDamage(int damage){
