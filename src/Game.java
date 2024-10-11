@@ -14,6 +14,7 @@ public class Game {
         enemyGenerator = new EnemyGenerator();
         itemDrop = new ItemDrop();
         inGame = false;
+
     }
 
 
@@ -21,14 +22,13 @@ public class Game {
     public void start(){
 
         while(running){
-            Weapon w1 = new Sword("Elf Sword", 500, 5, 50, "Elf Dust", 10);
-            Weapon w2 = new Sword("Dragon wand", 2000, 4, 180, "Dragon Scale", 10);
             System.out.println("Welcome to Player and Enemy! ");
             System.out.println("Please enter your name: ");
             String name = sc.nextLine();
             Player player = new Player(name);
-            player.addItemToInventory(w1);
-            player.addItemToInventory(w2);
+            player.addItemToInventory(new HealthPotion(3));
+            player.addItemToInventory(new Sword("Elf Sword", 500, 5, 50, "Elf Dust", 10));
+            player.addItemToInventory(new Sword("Dragon wand", 2000, 4, 180, "Dragon Scale", 10));
             inGame = true;
             while(inGame){
             System.out.println(player);
@@ -37,7 +37,16 @@ public class Game {
             int menuChoice = sc.nextInt();
             switch(menuChoice){
                 case 1:
+                System.out.println("Enter item number to showcase it");
                 player.openInventory();
+                int inventoryChoice = sc.nextInt();
+                Item item = player.specificPlayerItem(inventoryChoice);
+                int itemChoice = sc.nextInt();
+                switch(itemChoice){
+                    case 1:
+                        player.manageItem(item);
+                }
+
                 break;
                 case 2:
 
@@ -59,11 +68,11 @@ public class Game {
                                 System.out.println(enemy.getName() + " was defeated!");
                                 Item droppedItem = itemDrop.pickRandomItem(enemy.getLevel());
                                 System.out.println(droppedItem.getName() + " was dropped!: " + System.lineSeparator() +
-                                        droppedItem +
+                                        droppedItem + System.lineSeparator() +
                                         "1. Pick up item" + System.lineSeparator() +
                                         "2. Leave item" + System.lineSeparator());
-                                int itemChoice = sc.nextInt();
-                                switch(itemChoice){
+                                int dropChoice = sc.nextInt();
+                                switch(dropChoice){
                                     case 1:
                                         player.addItemToInventory(droppedItem);
                                         System.out.println("Item was added to Inventory!");

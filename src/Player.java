@@ -9,6 +9,7 @@ public class Player {
     private int gold;
     private int baseHealth;
     private int baseDefence;
+    private int maxHealth;
     private int baseDamage;
     private int xp;
     private int maxXp;
@@ -20,6 +21,7 @@ public class Player {
         this.level = 1;
         this.gold = 0;
         this.baseHealth = 100;
+        this.maxHealth = 100;
         this.baseDefence = 20;
         this.baseDamage = 30;
         this.xp = 0;
@@ -35,6 +37,7 @@ public class Player {
         level++;
         xp = excessXp;
         this.baseHealth += 20;
+        this.maxHealth += 20;
         this.baseDefence += 5;
         this.baseDamage += 10;
         System.out.println(name + " leveled up! Current level: " + level);
@@ -86,6 +89,19 @@ public class Player {
     public void addItemToInventory(Item item){
         inventory.addItem(item);
     }
+
+    public Item specificPlayerItem(int index){
+        return inventory.specificItem(index);
+    }
+
+    public void manageItem(Item item){
+        if(item.getClass().getSuperclass().toString().equals("class Consumable")){
+            drinkHpPotion((HealthPotion) item);
+        }else{
+            equipItem(item);
+        }
+    }
+
     public void removeItemFromInventory(Item item){
         try{
         inventory.removeItem(item.getName());
@@ -97,16 +113,28 @@ public class Player {
         inventory.openInventory();
     }
 
-    public void equipArmor(Armor armor){
-        equippedArmor = armor;
+    public void equipItem(Item item){
+        inventory.addEquippedItem(item);
+        if(item.getClass().getSuperclass().toString().equals("class Weapon")){
+           this.equippedWeapon = (Weapon) item;
+           System.out.println(equippedWeapon.getName() + " was equipped!");
+        }else if(item.getClass().getSuperclass().toString().equals("class Armor")){
+            this.equippedArmor = (Armor) item;
+            System.out.println(equippedArmor.getName() + " was equipped!");
+        }else{
+            System.out.println("Something went wrong");
+        }
     }
+
 
     public void drinkHpPotion(HealthPotion potion){
+        if(baseHealth < maxHealth){
+            if(baseHealth + potion.use() > maxHealth){
+                baseHealth = maxHealth;
+            }else{
         baseHealth += potion.use();
-    }
-
-    public void equipWeapon(Weapon weapon){
-        equippedWeapon = weapon;
+            }
+        }
     }
 
     @Override
